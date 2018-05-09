@@ -5,29 +5,37 @@
 		class="add-input"
 		autofocus="autofocus" 
 		placeholder="接下去要做什么" 
-		@keyup="addtodo"
+		@keyup.enter="addtodo"
 		>
-		<Item :todo="todo"></Item>
+		<Item 
+			v-for="todo in todos"
+			:todo="todo"
+			:key="todo.id"/>
+		<tabs></tabs>
 	</section>
 </template>
 <script>
 	import Item from './item.vue'
+	import tabs from './tabs.vue'
+	let id=0;
 	export default{
 		data:function(){
 			return{
-				todo:{
-					id:0,
-					content:'this is a todo',
-					completed:false
-				}
+				todos:[],
+				filter:'all'
 			}
 		},
 		components:{
-			Item
+			Item,tabs
 		},
 		methods:{
-			addtodo(){
-				console.log(8888995577)
+			addtodo(e){
+				this.todos.unshift({
+					id:id++,
+					content:e.target.value.trim(),
+					completed:false
+				})
+				e.target.value='';
 			}
 		}
 
