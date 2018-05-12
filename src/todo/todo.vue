@@ -10,7 +10,9 @@
 		<Item 
 			v-for="todo in todos"
 			:todo="todo"
-			:key="todo.id"/>
+			:key="todo.id"
+			@del="deleteTodo"
+		/>
 		<tabs></tabs>
 	</section>
 </template>
@@ -36,6 +38,15 @@
 					completed:false
 				})
 				e.target.value='';
+			},
+			deleteTodo(id){
+				var index='';
+				this.todos.forEach(function(index,item){
+					if(item.id==id){
+						index=index;
+					}
+				})
+				this.todos.splice(index,1)
 			}
 		}
 
